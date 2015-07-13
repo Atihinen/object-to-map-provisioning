@@ -1,0 +1,5 @@
+- name: Git clone
+  git: repo=https://github.com/Atihinen/ObjectToMap.git dest={{ app_base }} version={{ app_branch }}
+
+- name: Install dependencies
+  pip: requirements={{ app_base }}/requirements.txt extra_args='-U'

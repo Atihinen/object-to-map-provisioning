@@ -1,0 +1,9 @@
+- hosts: all
+  sudo: yes
+  roles:
+    - apt
+    - base
+    - apache
+    - security
+    - mysql
+    - app

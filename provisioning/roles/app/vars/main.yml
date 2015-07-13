@@ -1,0 +1,2 @@
+app_base: '/home/vagrant/app'
+app_branch: 'master'
