@@ -3,3 +3,6 @@
 
 - name: Install dependencies
   pip: requirements={{ app_base }}/requirements.txt extra_args='-U'
+
+- name: Install MySQL dependencies
+  apt: name=python-mysqldb state=latest
