@@ -21,6 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8081
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -123,4 +124,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.playbook = "provisioning/playbook.yml"
   end
   config.vm.synced_folder "./app", "/home/vagrant/app", create: true, id: "app"
+  config.vm.synced_folder "./client", "/home/vagrant/client", create: true, id: "client"
 end

@@ -1,0 +1,8 @@
+- name: Clone angularjs client
+  git: repo=https://github.com/Atihinen/object-to-map-angularjs-client.git dest={{ client_base }} version={{ client_branch }}
+
+- name: Delete content from apache root
+  file: path={{ apache_root }} state=absent
+  
+- name: Create symbolic link to apache root
+  file: src={{ client_base }}  dest={{ apache_root }} state=link

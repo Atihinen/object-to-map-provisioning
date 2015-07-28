@@ -1,0 +1,3 @@
+client_base: '/home/vagrant/client'
+client_branch: 'master'
+apache_root: '/var/www/html/'
