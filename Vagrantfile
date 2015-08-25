@@ -20,8 +20,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "forwarded_port", guest: 80, host: 8081
+  #config.vm.network "forwarded_port", guest: 8080, host: 8080
+  #config.vm.network "forwarded_port", guest: 80, host: 8081
+
+  is_windows_host = "#{OS.windows?}"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -120,9 +122,33 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
-  config.vm.provision :ansible do |ansible|
-    ansible.playbook = "provisioning/playbook.yml"
+  if is_windows_host
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = "./provisioning/playbook.yml"
+    end
+  else
+    config.vm.provision :shell, path: "provisioning.sh"
   end
   config.vm.synced_folder "./app", "/home/vagrant/app", create: true, id: "app"
   config.vm.synced_folder "./client", "/home/vagrant/client", create: true, id: "client"
+
+
+end
+
+module OS
+    def OS.windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.mac?
+        (/darwin/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.unix?
+        !OS.windows?
+    end
+
+    def OS.linux?
+        OS.unix? and not OS.mac?
+    end
 end
