@@ -3,6 +3,12 @@
 
 - name: Delete content from apache root
   file: path={{ apache_root }} state=absent
-  
+  register: result
+  ignore_errors: yes
+
+- name: Create missing folder
+  file: path={{ apache_root }} state=directory
+  when: result|failed
+
 - name: Create symbolic link to apache root
   file: src={{ client_base }}  dest={{ apache_root }} state=link
