@@ -123,11 +123,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   #   chef.validation_client_name = "ORGNAME-validator"
   if is_windows_host
+    config.vm.provision :shell, path: "provisioning.sh"
+  else
     config.vm.provision :ansible do |ansible|
       ansible.playbook = "./provisioning/playbook.yml"
     end
-  else
-    config.vm.provision :shell, path: "provisioning.sh"
   end
   config.vm.synced_folder "./app", "/home/vagrant/app", create: true, id: "app"
   config.vm.synced_folder "./client", "/home/vagrant/client", create: true, id: "client"
