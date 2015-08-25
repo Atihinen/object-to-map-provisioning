@@ -13,4 +13,4 @@
   
 
 - name: Create symbolic link to apache root
-  file: src={{ client_base }}  dest={{ apache_root }} state=link
+  file: src={{ client_base }}  dest={{ client_apache_root }} state=link

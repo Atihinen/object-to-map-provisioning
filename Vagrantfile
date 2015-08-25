@@ -23,8 +23,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 80, host: 8081
 
-  is_windows_host = "#{OS.windows?}"
-
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
@@ -122,12 +120,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
-  if is_windows_host
+  if OS.windows?
     config.vm.provision :shell, path: "provisioning.sh"
   else
-    config.vm.provision :ansible do |ansible|
-      ansible.playbook = "./provisioning/playbook.yml"
-    end
+     config.vm.provision :ansible do |ansible|
+       ansible.playbook = "./provisioning/playbook.yml"
+     end
   end
   config.vm.synced_folder "./app", "/home/vagrant/app", create: true, id: "app"
   config.vm.synced_folder "./client", "/home/vagrant/client", create: true, id: "client"
