@@ -25,6 +25,8 @@ Install pip and then run following command: `pip install ansible` use sudo if ne
 2. Cd to repository: `cd object-to-map-provisioning`
 3. Start installation: `vagrant up`
 4. Wait couple of minutes, grap a coffee etc
+5. Set git credentials correctly for the app and client folder
+  * Easiest way is to cd to folder and run command `git remote add <new remote> <url for repo>`
 
 ### Troubleshooting
 
